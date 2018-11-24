@@ -55,7 +55,7 @@
 
     <script>
     MG._hooks = {};
-    d3.json('data/taipei_latest.json', function(data) {
+    d3.json('data/taipei_20181124-194918.json', function(data) {
       console.log(data.length)
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
