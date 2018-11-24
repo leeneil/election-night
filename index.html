@@ -36,6 +36,10 @@
         <div id="taipei">
       </main>
 
+      <main role="main" class="inner cover">
+        <div id="kaohsiung">
+      </main>
+
       <footer class="mastfoot mt-auto">
         <div class="inner">
           <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
@@ -55,7 +59,7 @@
 
     <script>
     MG._hooks = {};
-    d3.json('data/taipei_20181124-194918.json', function(data) {
+    d3.json('data/taipei_latest.json', function(data) {
       console.log(data.length)
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
@@ -69,6 +73,23 @@
     legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
     colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
     target: '#taipei'
+    });
+    });
+
+    d3.json('data/kaohsiung_latest.json', function(data) {
+      console.log(data.length)
+      for (var i = 0; i < data.length; i++) {
+      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
+      }
+    MG.data_graphic({
+    title: "高雄市",
+    data: data,
+    width: 800,
+    height: 200,
+    right: 200,
+    legend: ['韓國瑜', '陳其邁', '璩美鳳', '蘇盈貴'],
+    colors: ['#96f2ff', '#5ac641', '#aaaaaa', '#bbbbbb'],
+    target: '#kaohsiung'
     });
     });
 
