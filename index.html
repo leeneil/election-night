@@ -54,11 +54,6 @@
         </div>
       </header>
 
-
-      <div class="alert alert-primary" role="alert">
-        資料整理中，稍候會有完整的六都數據，我們晚點見！
-      </div>
-
       <main role="main" class="inner cover">
         <div id="taipei_pred">
       </main>
@@ -124,13 +119,12 @@
           var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
           return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
       }
-      console.log(getTimeZone())
       var markers = [{
             // 'date': '2018-11-24T20:25:00.000',
             'date': Date.parse('2018-11-24T20:25:00.000'+getTimeZone()),
             'label': '姚文智承認敗選'
         }, {
-            'date': new Date('2018-11-25T00:02:00.000'+getTimeZone()),
+            'date': new Date('2018-11-25T02:00:00.000'+getTimeZone()),
             'label': '丁守中提選舉無效'
         }];
 
