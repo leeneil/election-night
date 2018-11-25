@@ -120,13 +120,17 @@
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
       }
-
+      function getTimeZone() {
+          var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+          return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+      }
+      console.log(getTimeZone())
       var markers = [{
-            // 'date': new Date('2018-11-24T20:25:00.000-08:00'),
-            'date': Date.parse('2018-11-24T20:25:00.000-08:00'),
+            // 'date': '2018-11-24T20:25:00.000',
+            'date': Date.parse('2018-11-24T20:25:00.000'+getTimeZone()),
             'label': '姚文智承認敗選'
         }, {
-            'date': new Date('2018-11-25T00:02:00.000-08:00'),
+            'date': new Date('2018-11-25T00:02:00.000'+getTimeZone()),
             'label': '丁守中提選舉無效'
         }];
 

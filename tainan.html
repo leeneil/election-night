@@ -119,8 +119,13 @@
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
       }
 
+
+      function getTimeZone() {
+          var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+          return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+      }
       var markers = [{
-            'date': new Date('2018-11-24T20:45:00.000-08:00'),
+            'date': new Date('2018-11-24T20:45:00.000'+getTimeZone()),
             'label': '高思博承認敗選'
         }];
 
