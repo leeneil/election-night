@@ -12,9 +12,9 @@
       gtag('config', 'UA-79479300-2');
     </script>
 
-    <meta property="og:url"                content="http://election-night.ponan.li/about.html" />
+    <meta property="og:url"                content="http://election-night.ponan.li" />
     <meta property="og:type"               content="article" />
-    <meta property="og:title"              content="Taiwan Election Night - About" />
+    <meta property="og:title"              content="Taiwan Election Night" />
     <meta property="og:description"        content="以機器學習方法預測台灣地方首長大選贏家" />
     <meta property="og:image"              content="http://election-night.ponan.li/img/og.png" />
 
@@ -43,21 +43,33 @@
           <h3 class="masthead-brand">2018 大選開票預測</h3>
           <nav class="nav nav-masthead justify-content-center">
             <a class="nav-link" href="index.html">台北市</a>
-            <a class="nav-link" href="#">六都</a>
+            <a class="nav-link active" href="#">六都</a>
             <a class="nav-link" href="#">縣長</a>
             <a class="nav-link" target="_blank "href="https://rfrd-tw.github.io/">公投</a>
-            <a class="nav-link acitve" href="about.html">關於</a>
+            <a class="nav-link" href="about.html">關於</a>
           </nav>
         </div>
       </header>
 
+
       <main role="main" class="inner cover">
-        <h1 class="cover-heading">關於</h1>
-        <p class="lead">本專案旨在即時紀錄中選會網站開票過程，並試圖以機器學習方法與前次大選結果預測選舉結果。</p>
-        <p class="lead">
-          <a target="_blank "href="https://github.com/rfrd-tw/taiwan-2018/tree/master/data" class="btn btn-lg btn-secondary">資料集</a>
-        </p>
+        <h2>新北市</h2>
+        <div id="newtaipei_pred">
+        <br />
+        <div id="newtaipei_proj">
       </main>
+
+      <br>
+
+      <main role="main" class="inner cover">
+        <h2>桃園市</h2>
+        <div id="taoyuan_pred">
+          <br />
+        <div id="taoyuan_proj">
+      </main>
+
+      <br>
+
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
@@ -78,34 +90,118 @@
 
     <script>
     MG._hooks = {};
-    d3.json('data/taipei_latest.json', function(data) {
+    d3.json('data/newtaipei_pred_latest.json', function(data) {
       console.log(data.length)
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
       }
     MG.data_graphic({
-    title: "台北市",
+    title: "新北市長預測",
     data: data,
     width: 800,
     height: 200,
     right: 200,
-    legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
-    colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
-    target: '#taipei',
+    // aggregate_rollover: true,
+    legend: ['蘇貞昌', '侯友宜'],
+    colors: ['#5ac641', '#96f2ff'],
+    target: '#newtaipei_pred',
     x_label: '台灣時間',
     y_label: '勝選機率（％）'
     });
     });
 
-    d3.json('data/kaohsiung_latest.json', function(data) {
+    d3.json('data/newtaipei_proj_latest.json', function(data) {
+      console.log(data.length)
+      for (var i = 0; i < data.length; i++) {
+      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
+      }
+
+      // var markers = [{
+      //       'date': new Date('2018-11-24T20:25:00.000Z'),
+      //       'label': '姚文智承認敗選'
+      //   }, {
+      //       'date': new Date('2018-11-25T00:02:00.000Z'),
+      //       'label': '丁守中提選舉無效'
+      //   }];
+
+    MG.data_graphic({
+    title: "新北市得票率預測",
+    data: data,
+    width: 800,
+    height: 200,
+    right: 200,
+    // markers: markers,
+    // aggregate_rollover: true,
+    legend: ['蘇貞昌', '侯友宜'],
+    colors: ['#5ac641', '#96f2ff'],
+    target: '#newtaipei_proj',
+    x_label: '台灣時間',
+    y_label: '得票率（％）'
+    // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
+    });
+    });
+
+
+    d3.json('data/taoyuan_pred_latest.json', function(data) {
       console.log(data.length)
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
       }
     MG.data_graphic({
-    title: "高雄市",
+    title: "市長預測",
     data: data,
     width: 800,
+    height: 200,
+    right: 200,
+    // aggregate_rollover: true,
+    legend: ['朱梅雪', '陳學聖', '楊麗環', '吳富彤', '鄭文燦'],
+    colors: ['#aaaaaa', '#96f2ff', '#bbbbbb', '#cccccc', '#5ac641', ],
+    target: '#taoyuan_pred',
+    x_label: '台灣時間',
+    y_label: '勝選機率（％）'
+    });
+    });
+
+    d3.json('data/taoyuan_proj_latest.json', function(data) {
+      console.log(data.length)
+      for (var i = 0; i < data.length; i++) {
+      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
+      }
+
+      // var markers = [{
+      //       'date': new Date('2018-11-24T20:25:00.000Z'),
+      //       'label': '姚文智承認敗選'
+      //   }, {
+      //       'date': new Date('2018-11-25T00:02:00.000Z'),
+      //       'label': '丁守中提選舉無效'
+      //   }];
+
+    MG.data_graphic({
+    title: "得票率預測",
+    data: data,
+    width: 800,
+    height: 200,
+    right: 200,
+    // markers: markers,
+    // aggregate_rollover: true,
+    legend: ['朱梅雪', '陳學聖', '楊麗環', '吳富彤', '鄭文燦'],
+    colors: ['#aaaaaa', '#96f2ff', '#bbbbbb', '#cccccc', '#5ac641', ],
+    target: '#taoyuan_proj',
+    x_label: '台灣時間',
+    y_label: '得票率（％）'
+    // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
+    });
+    });
+
+    d3.json('data/kaohsiung_pred_latest.json', function(data) {
+      console.log(data.length)
+      for (var i = 0; i < data.length; i++) {
+      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
+      }
+    MG.data_graphic({
+    title: "高雄市長預測",
+    data: data,
+    width: 600,
     height: 200,
     right: 200,
     legend: ['韓國瑜', '陳其邁', '璩美鳳', '蘇盈貴'],

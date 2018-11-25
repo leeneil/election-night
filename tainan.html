@@ -42,11 +42,11 @@
         <div class="inner">
           <h3 class="masthead-brand">2018 大選開票預測</h3>
           <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="#">台北</a>
+            <a class="nav-link" href="index.html">台北</a>
             <a class="nav-link" href="newtaipeicity.html">新北</a>
             <a class="nav-link" href="taoyuan.html">桃園</a>
             <a class="nav-link" href="taichung.html">台中</a>
-            <a class="nav-link" href="tainan.html">台南</a>
+            <a class="nav-link active" href="tainan.html">台南</a>
             <a class="nav-link" href="kaohsiung.html">高雄</a>
             <a class="nav-link" target="_blank "href="https://rfrd-tw.github.io/">公投</a>
             <a class="nav-link" href="about.html">關於</a>
@@ -55,21 +55,19 @@
       </header>
 
 
-      <div class="alert alert-primary" role="alert">
-        資料整理中，稍候會有完整的六都數據，我們晚點見！
-      </div>
-
       <main role="main" class="inner cover">
-        <div id="taipei_pred">
+        <h2>台南市</h2>
+        <div id="pred">
       </main>
 
       <br>
 
       <main role="main" class="inner cover">
-        <div id="taipei_proj">
+        <div id="proj">
       </main>
 
       <br>
+
 
 
       <footer class="mastfoot mt-auto">
@@ -91,69 +89,65 @@
 
     <script>
     MG._hooks = {};
-    d3.json('data/taipei_pred_latest.json', function(data) {
+    d3.json('data/tainan_pred_latest.json', function(data) {
       console.log(data.length)
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
       }
     MG.data_graphic({
-    title: "台北市長預測",
+    title: "市長預測",
+    data: data,
     rollover_time_format: "%H:%M:%S",
     linked: true,
     linked_format: '%Y-%m-%d-%H-%M-%S',
     interpolate: d3.curveMonotoneX,
-    data: data,
     width: 800,
     height: 200,
     right: 200,
     // aggregate_rollover: true,
-    legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
-    colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
-    target: '#taipei_pred',
+    legend: ['黃偉哲', '高思博', '林義豐', '許忠信', '陳永和', '蘇煥智'],
+    colors: ['#5ac641', '#96f2ff', '#aaa', '#bbb', '#ccc', '#ddd'],
+    target: '#pred',
     x_label: '台灣時間',
     y_label: '勝選機率（％）'
     });
     });
 
-    d3.json('data/taipei_proj_latest.json', function(data) {
+    d3.json('data/tainan_proj_latest.json', function(data) {
       console.log(data.length)
       for (var i = 0; i < data.length; i++) {
       data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
       }
 
       var markers = [{
-            // 'date': new Date('2018-11-24T20:25:00.000-08:00'),
-            'date': Date.parse('2018-11-24T20:25:00.000-08:00'),
-            'label': '姚文智承認敗選'
-        }, {
-            'date': new Date('2018-11-25T00:02:00.000-08:00'),
-            'label': '丁守中提選舉無效'
+            'date': new Date('2018-11-24T20:45:00.000-08:00'),
+            'label': '高思博承認敗選'
         }];
 
-      console.log(markers)
-
-      MG.data_graphic({
-      title: "台北市得票率預測",
-      rollover_time_format: "%H:%M:%S",
-      linked: true,
-      linked_format: '%Y-%m-%d-%H-%M-%S',
-      interpolate: d3.curveMonotoneX,
-      data: data,
-      width: 800,
-      height: 200,
-      right: 200,
-      x_sort: false,
-      // aggregate_rollover: true,
-      legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
-      // legend_target: '.legend',
-      colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
-      target: '#taipei_proj',
-      x_label: '台灣時間',
-      y_label: '得票率（％）',
-      markers: markers
-      // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
-      });
+    MG.data_graphic({
+    title: "得票率預測",
+    data: data,
+    rollover_time_format: "%H:%M:%S",
+    linked: true,
+    linked_format: '%Y-%m-%d-%H-%M-%S',
+    interpolate: d3.curveMonotoneX,
+    width: 800,
+    height: 200,
+    right: 200,
+    markers: markers,
+    // aggregate_rollover: true,
+    legend: ['黃偉哲', '高思博', '林義豐', '許忠信', '陳永和', '蘇煥智'],
+    colors: ['#5ac641', '#96f2ff', '#aaa', '#bbb', '#ccc', '#ddd'],
+    target: '#proj',
+    x_label: '台灣時間',
+    y_label: '得票率（％）'
+    // baselines: [{value: 38.02, label: '黃'}]
     });
+    });
+
+
+
+
 
 
     </script>
