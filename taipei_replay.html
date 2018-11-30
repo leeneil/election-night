@@ -42,7 +42,7 @@
         <div class="inner">
           <h3 class="masthead-brand">2018 大選開票預測</h3>
           <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="#">台北</a>
+            <a class="nav-link" href="index.html">台北</a>
             <a class="nav-link" href="newtaipeicity.html">新北</a>
             <a class="nav-link" href="taoyuan.html">桃園</a>
             <a class="nav-link" href="taichung.html">台中</a>
@@ -54,24 +54,21 @@
         </div>
       </header>
 
-      <div class="alert alert-dark" role="alert">
-        新增：邊投票邊開票造成不公？來看看<a href="taipei_replay.html" class="alert-link">台北開票過程紀錄</a>
-      </div>
-
-
-
       <main role="main" class="inner cover">
-        <div id="taipei_pred">
+        <div id="taipei_votes">
       </main>
 
       <br>
 
       <main role="main" class="inner cover">
-        <div id="taipei_proj">
+        <div id="taipei_incre">
       </main>
 
       <br>
 
+      <main role="main" class="inner cover">
+        <div id="legend">
+      </main>
 
 
       <footer class="mastfoot mt-auto">
@@ -93,72 +90,6 @@
 
     <script>
     MG._hooks = {};
-    d3.json('data/taipei_pred_latest.json', function(data) {
-      console.log(data.length)
-      for (var i = 0; i < data.length; i++) {
-      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
-      }
-    MG.data_graphic({
-    title: "市長預測",
-    rollover_time_format: "%H:%M:%S",
-    linked: true,
-    linked_format: '%Y-%m-%d-%H-%M-%S',
-    interpolate: d3.curveMonotoneX,
-    data: data,
-    width: 800,
-    height: 200,
-    right: 200,
-    // aggregate_rollover: true,
-    legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
-    colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
-    target: '#taipei_pred',
-    x_label: '台灣時間',
-    y_label: '勝選機率（％）'
-    });
-    });
-
-    d3.json('data/taipei_proj_latest.json', function(data) {
-      console.log(data.length)
-      for (var i = 0; i < data.length; i++) {
-      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
-      }
-      function getTimeZone() {
-          var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
-          return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
-      }
-      var markers = [{
-            // 'date': '2018-11-24T20:25:00.000',
-            'date': Date.parse('2018-11-24T20:25:00.000'+getTimeZone()),
-            'label': '姚文智承認敗選'
-        }, {
-            'date': new Date('2018-11-25T02:00:00.000'+getTimeZone()),
-            'label': '丁守中提選舉無效'
-        }];
-
-      console.log(markers)
-
-      MG.data_graphic({
-      title: "得票率預測",
-      rollover_time_format: "%H:%M:%S",
-      linked: true,
-      linked_format: '%Y-%m-%d-%H-%M-%S',
-      interpolate: d3.curveMonotoneX,
-      data: data,
-      width: 800,
-      height: 200,
-      right: 200,
-      x_sort: false,
-      // aggregate_rollover: true,
-      legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
-      // legend_target: '#legend',
-      colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
-      target: '#taipei_proj',
-      x_label: '台灣時間',
-      y_label: '得票率（％）',
-      markers: markers
-      // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
-      });
-    });
 
     d3.json('data/taipei_votes_by_time.json', function(data) {
       console.log(data.length)
@@ -186,23 +117,59 @@
       linked: true,
       linked_format: '%Y-%m-%d-%H-%M-%S',
       interpolate: d3.curveMonotoneX,
-      // markers: markers,
       data: data,
       width: 800,
       height: 200,
       right: 200,
       x_sort: false,
+      x_accessor: 'date',
+      y_accessor: 'votes',
       aggregate_rollover: true,
       legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
-      // legend_target: '.legend',
+      legend_target: '#legend',
       colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
-      target: '#taipei_vote',
+      target: '#taipei_votes',
       x_label: '台灣時間',
-      y_label: '票數'
+      y_label: '票數',
+      markers: markers
+      // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
+      });
+
+      MG.data_graphic({
+      title: "增加率",
+      rollover_time_format: "%H:%M:%S",
+      linked: true,
+      linked_format: '%Y-%m-%d-%H-%M-%S',
+      interpolate: d3.curveMonotoneX,
+      data: data,
+      width: 800,
+      height: 200,
+      right: 200,
+      x_sort: false,
+      min_y: 0,
+      max_y: 0.2,
+      point_size: 3,
+      active_point_on_lines: true,
+      active_point_accessor: 'active',
+      active_point_size: 2,
+      // show_tooltips: false,
+      // markers: markers,
+      x_accessor: 'date',
+      y_accessor: 'incre',
+      aggregate_rollover: true,
+      legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
+      legend_target: '#legend',
+      colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#bcbcbc', '#bbbbbb'],
+      target: '#taipei_incre',
+      format: 'percentage',
+      x_label: '台灣時間',
+      y_label: '增加率（％）'
 
       // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
       });
     });
+
+
 
 
     </script>
