@@ -1,0 +1,180 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79479300-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-79479300-2');
+    </script>
+
+    <meta property="og:url"                content="http://election-night.ponan.li/taipei_replay.html" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="Taiwan Election Night - Taipei Replay" />
+    <meta property="og:description"        content="台北開票過程及票數增加率回放" />
+    <meta property="og:image"              content="http://election-night.ponan.li/img/taipei_replay.png" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <title>2018 大選開票預測 - 台北開票過程回放</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/index.css" rel="stylesheet">
+    <link href='css/mg.css' rel='stylesheet' type='text/css' id='dark'>
+    <link href='css/mg-dark.css' rel='stylesheet' type='text/css' id='dark'>
+  </head>
+
+  <body class="text-center">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">2018 大選開票預測</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="index.html">台北</a>
+            <a class="nav-link" href="newtaipeicity.html">新北</a>
+            <a class="nav-link" href="taoyuan.html">桃園</a>
+            <a class="nav-link" href="taichung.html">台中</a>
+            <a class="nav-link" href="tainan.html">台南</a>
+            <a class="nav-link" href="kaohsiung.html">高雄</a>
+            <a class="nav-link" target="_blank "href="https://rfrd-tw.github.io/">公投</a>
+            <a class="nav-link" href="about.html">關於</a>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <h2>台北市開票紀錄</h2>
+        <p class="small">垂直標記指該區已全數開完。</p>
+        <div id="taipei_votes">
+
+      </main>
+      <br>
+
+      <main role="main" class="inner cover">
+        <div id="taipei_votes_cec">
+      </main>
+
+      <br>
+
+      <main role="main" class="inner cover">
+        <div id="legend">
+      </main>
+
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src='https://d3js.org/d3.v4.min.js' charset='utf-8'></script>
+    <script src='js/metricsgraphics.min.js'></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+    MG._hooks = {};
+
+    d3.json('data/taipei_cec_results_by_time.json', function(data) {
+      console.log(data.length)
+      for (var i = 0; i < data.length; i++) {
+      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
+      }
+      function getTimeZone() {
+          var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+          return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+      }
+
+
+
+      MG.data_graphic({
+      title: "中選會資料",
+      rollover_time_format: "%H:%M:%S",
+      linked: true,
+      linked_format: '%Y-%m-%d-%H-%M',
+      interpolate: d3.curveMonotoneX,
+      data: data,
+      min_x: new Date('2018-11-24T17:00:00.000'+getTimeZone()),
+      max_x: new Date('2018-11-25T03:00:00.000'+getTimeZone()),
+      width: 800,
+      height: 200,
+      right: 200,
+      x_sort: false,
+      x_accessor: 'date',
+      y_accessor: 'data',
+      brush: 'xy',
+      aggregate_rollover: true,
+      legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
+      legend_target: '#legend',
+      colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#eee', '#bbbbbb'],
+      target: '#taipei_votes_cec',
+      x_label: '台灣時間',
+      y_label: '票數'
+      // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
+      });
+    });
+
+
+    d3.json('data/taipei_votes_by_time.json', function(data) {
+      console.log(data.length)
+      for (var i = 0; i < data.length; i++) {
+      data[i] = MG.convert.date(data[i], 'date', '%Y%m%d-%H%M%S');
+      }
+      function getTimeZone() {
+          var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+          return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2) + ":" + ("00" + (o % 60)).slice(-2);
+      }
+
+
+
+      MG.data_graphic({
+      title: "本站資料",
+      rollover_time_format: "%H:%M:%S",
+      linked: true,
+      linked_format: '%Y-%m-%d-%H-%M',
+      interpolate: d3.curveMonotoneX,
+      data: data,
+      min_x: new Date('2018-11-24T17:00:00.000'+getTimeZone()),
+      max_x: new Date('2018-11-25T03:00:00.000'+getTimeZone()),
+      width: 800,
+      height: 200,
+      right: 200,
+      x_sort: false,
+      x_accessor: 'date',
+      y_accessor: 'votes',
+      brush: 'xy',
+      aggregate_rollover: true,
+      legend: ['吳蕚洋', '丁守中', '姚文智', '柯文哲', '李錫錕'],
+      legend_target: '#legend',
+      colors: ['#aaaaaa', '#96f2ff', '#5ac641', '#eee', '#bbbbbb'],
+      target: '#taipei_votes',
+      x_label: '台灣時間',
+      y_label: '票數'
+      // baselines: [{value: 41.05, label: '柯文哲      '}, {value: 40.82, label: '      丁守中'}]
+      });
+    });
+
+
+
+
+    </script>
+  </body>
+</html>
